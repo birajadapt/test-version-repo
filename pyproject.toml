@@ -7,8 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9 <3.12"
-requests = "^2.32.3"
-realtime-client = {path = "../code/realtime-client", extras = ["extras"]}
+realtime-client = {path = "../code/realtime-client", extras = ["all"]}
 
 
 [build-system]
