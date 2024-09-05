@@ -43,4 +43,4 @@ jobs:
         run: |
           git add version.txt
           git commit -m "Bump version to $VERSION"
-          git push https://x-access-token:${{ secrets.THE_GITHUB_PAT }}@github.com/birajadapt/${{ github.repository }}
+          git push https://x-access-token:${{ secrets.THE_GITHUB_PAT }}@github.com/${{ github.repository }}
