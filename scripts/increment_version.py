@@ -49,10 +49,10 @@ def main():
             part=increment_type
         )
 
+        print("New version:", new_version)
+
         f.seek(0)
         f.write(f"{str(new_version)}\n")
-
-        print(new_version)
 
 
 if __name__ == "__main__":

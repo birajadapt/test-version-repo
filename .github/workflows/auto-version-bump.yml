@@ -43,5 +43,5 @@ jobs:
         run: |
           git add version.txt
           git commit -m "Bump version to $VERSION"
-          echo "${{ secrets.THE_GITHUB_PAT }}"
-          GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push https://${{github.actor}}:${{ secrets.THE_GITHUB_PAT }}@github.com/${{ github.repository }}
+          git remote action-origin https://x-access-token:${{ secrets.THE_GITHUB_PAT }}@github.com/${{ github.repository }}
+          git push -u action-origin HEAD:${{ github.ref }}
