@@ -34,11 +34,13 @@ jobs:
           echo "New version: $new_version"
           echo "VERSION=$new_version" >> $GITHUB_ENV
 
-      - name: Bump version and commit
+      - name: Configure Git
         run: |
-          echo "$VERSION" > version.txt
           git config --global user.name 'github-actions'
           git config --global user.email 'actions@github.com'
+
+      - name: Bump version and commit
+        run: |
           git add version.txt
           git commit -m "Bump version to $VERSION"
-          git push
+          git push https://x-access-token:${{ secrets.THE_GITHUB_PAT }}@github.com/birajadapt/${{ github.repository }}
