@@ -43,5 +43,5 @@ jobs:
         run: |
           git add version.txt
           git commit -m "Bump version to $VERSION"
-          git remote action-origin https://x-access-token:${{ secrets.THE_GITHUB_PAT }}@github.com/${{ github.repository }}
+          git remote add action-origin https://x-access-token:${{ secrets.THE_GITHUB_PAT }}@github.com/${{ github.repository }}
           git push -u action-origin HEAD:${{ github.ref }}
