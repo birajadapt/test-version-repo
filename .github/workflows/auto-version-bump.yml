@@ -36,11 +36,12 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name '${{github.actor}}'
+          git config --global user.name 'github-actions'
           git config --global user.email 'actions@github.com'
 
       - name: Bump version and commit
         run: |
           git add version.txt
           git commit -m "Bump version to $VERSION"
+          echo "${{ secrets.THE_GITHUB_PAT }}"
           GIT_CURL_VERBOSE=1 GIT_TRACE=1 git push https://${{github.actor}}:${{ secrets.THE_GITHUB_PAT }}@github.com/${{ github.repository }}
