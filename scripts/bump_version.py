@@ -74,32 +74,32 @@ def main():
             print("No change detected.")
             return
 
+        print("New version:", new_version)
+
         # write new version to the file
         f.seek(0)
         f.write(new_version)
 
-        # configure git
-        subprocess.run(["git", "config", "--global", "user.name", "github-actions"])
-        subprocess.run(
-            ["git", "config", "--global", "user.email", "actions@github.com"]
-        )
+    # configure git
+    subprocess.run(["git", "config", "--global", "user.name", "github-actions"])
+    subprocess.run(["git", "config", "--global", "user.email", "actions@github.com"])
 
-        # add, commit and push
-        subprocess.run(["git", "add", VERSION_FILE])
-        subprocess.run(["git", "commit", "-m", f"Bump version to {new_version}"])
-        subprocess.run(
-            [
-                "git",
-                "remote",
-                "add",
-                "action-origin",
-                "https://x-access-token:"
-                + env["THE_GITHUB_PAT"]
-                + "@github.com/"
-                + env["REPO"],
-            ]
-        )
-        subprocess.run(["git", "push", "origin", f"HEAD:{env['BRANCH']}"])
+    # add, commit and push
+    subprocess.run(["git", "add", VERSION_FILE])
+    subprocess.run(["git", "commit", "-m", f"Bump version to {new_version}"])
+    subprocess.run(
+        [
+            "git",
+            "remote",
+            "add",
+            "action-origin",
+            "https://x-access-token:"
+            + env["THE_GITHUB_PAT"]
+            + "@github.com/"
+            + env["REPO"],
+        ]
+    )
+    subprocess.run(["git", "push", "origin", f"HEAD:{env['BRANCH']}"])
 
 
 if __name__ == "__main__":
