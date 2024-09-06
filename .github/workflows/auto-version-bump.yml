@@ -30,8 +30,8 @@ jobs:
         id: bump_version
         run: |
           # set environment variable for the script to use
-          echo "THE_GITHUB_PAT=${{ secrets.THE_GITHUB_PAT }}" >> $GITHUB_ENV
-          echo "REPO=${{ github.repository }}" >> $GITHUB_ENV
-          echo "BRANCH=${{ github.ref }}" >> $GITHUB_ENV
+          export THE_GITHUB_PAT=${{ secrets.THE_GITHUB_PAT }}
+          export REPO=${{ github.repository }}
+          export BRANCH=${{ github.ref }}
           python3 ./scripts/bump_version.py
 
