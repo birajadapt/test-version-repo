@@ -43,7 +43,7 @@ def main():
         increment_type = determine_increment_type(commit_message)
         print(f"Increment type: {increment_type}")
         if increment_type is None:
-            return current_version
+            return
 
         new_version = semver.VersionInfo.parse(current_version).next_version(
             part=increment_type
