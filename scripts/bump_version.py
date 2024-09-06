@@ -38,13 +38,13 @@ def determine_bump_type(commit_message: str) -> str:
         str: The type of version bump ('major', 'minor', or 'patch').
     """
 
-    if re.match(r"^(?:chore|docs|style|refactor|build|ci|test):", commit_message):
+    if re.match(r"^(?:chore|docs?|style|refactor|build|ci|test)\b", commit_message):
         return None
-    elif re.match(r"^feat:", commit_message):
+    elif re.match(r"^feat\b", commit_message):
         return "minor"
-    if re.search(r"^major:", commit_message):
+    if re.search(r"^major\b", commit_message):
         return "major"
-    # elif re.match(r"^fix:", commit_message):
+    # elif re.match(r"^fix\b", commit_message):
     #     return "patch"
     else:
         return "patch"
