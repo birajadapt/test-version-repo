@@ -43,9 +43,8 @@ def main():
         bump_type = determine_bump_type(commit_message)
         print(f"Bump type: {bump_type}")
         if bump_type is None:
-            print(
-                "No version bump detected. Exiting with status 1 to stop the workflow..."
-            )
+            print("No version bump detected. Exiting with status 1...")
+            print("NO_CHANGE")
             exit(1)
 
         new_version = semver.VersionInfo.parse(current_version).next_version(
