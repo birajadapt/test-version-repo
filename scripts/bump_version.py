@@ -6,6 +6,11 @@ import semver
 
 VERSION_FILE = "version.txt"
 
+
+def print_flush_immediately(*values):
+    print(*values, flush=True)
+
+
 env = {
     "THE_GITHUB_PAT": os.getenv("THE_GITHUB_PAT"),
     "REPO": os.getenv("REPO"),
@@ -14,11 +19,11 @@ env = {
 
 missing_env = [key for key, value in env.items() if value is None]
 if len(missing_env) > 0:
-    print("Missing environment variables:")
+    print_flush_immediately("Missing environment variables:")
     for key in missing_env:
-        print(f"  {key}")
+        print_flush_immediately(f"  {key}")
 
-    print("Exiting with status 1...")
+    print_flush_immediately("Exiting with status 1...")
     exit(1)
 
 
@@ -32,8 +37,6 @@ def determine_bump_type(commit_message: str) -> str:
     Returns:
         str: The type of version bump ('major', 'minor', or 'patch').
     """
-
-    print(f"Commit message: {commit_message}")
 
     if re.match(r"^(?:chore|docs|style|refactor|build|ci|test):", commit_message):
         return None
@@ -53,17 +56,17 @@ def main():
         capture_output=True,
         text=True,
     ).stdout.strip()
-    print(f"Commit message: {commit_message}")
+    print_flush_immediately(f"Commit message: {commit_message}")
 
     with open(VERSION_FILE, "r+") as f:
         current_version = f.read().strip()
-        print(f"Current version: {current_version}")
+        print_flush_immediately(f"Current version: {current_version}")
 
         bump_type = determine_bump_type(commit_message)
-        print(f"Bump type: {bump_type}")
+        print_flush_immediately(f"Bump type: {bump_type}")
 
         if bump_type is None:
-            print("No version bump detected.")
+            print_flush_immediately("No version bump detected.")
             return
 
         new_version = semver.VersionInfo.parse(current_version).next_version(
@@ -71,10 +74,10 @@ def main():
         )
         new_version = str(new_version).strip()
         if new_version == current_version:
-            print("No change detected.")
+            print_flush_immediately("No change detected.")
             return
 
-        print("New version:", new_version)
+        print_flush_immediately("New version:", new_version)
 
         # write new version to the file
         f.seek(0)
